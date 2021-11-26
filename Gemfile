@@ -31,6 +31,7 @@ group :development, :test do
 
   # add factory bot and rspec and should matchers
   gem 'factory_bot_rails'
+  gem 'faker'
   gem 'rspec-rails'
   gem 'shoulda-matchers'
 
