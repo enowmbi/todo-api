@@ -4,6 +4,8 @@ module Api
   module V1
     # Todos controller
     class TodosController < ApplicationController
+      rescue_from ActiveRecord::RecordNotFound, with: :display_record_not_found_error_message
+
       before_action :set_todo, only: %i[show update destroy]
 
       def index
@@ -63,6 +65,10 @@ module Api
 
       def set_todo
         @todo = Todo.find(params[:id])
+      end
+
+      def display_record_not_found_error_message
+        render(json: { error: "Todo with ID:(#{params[:id]}) Not found" }, status: :not_found)
       end
     end
   end
