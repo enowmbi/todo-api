@@ -6,9 +6,9 @@ module Api
     class TodosController < ApplicationController
       def index
         todos = Todo
-          .all
-          .limit(limit)
-          .offset(page_number)
+                .all
+                .limit(limit)
+                .offset(page_number)
 
         render json: todos
       end
