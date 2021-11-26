@@ -4,6 +4,8 @@ module Api
   module V1
     # Todos controller
     class TodosController < ApplicationController
+      before_action :set_todo, only: [:show]
+
       def index
         todos = Todo
                 .all
@@ -11,6 +13,10 @@ module Api
                 .offset(offset)
 
         render json: todos
+      end
+
+      def show
+        render json: @todo
       end
 
       def create
@@ -37,6 +43,10 @@ module Api
 
       def todo_params
         params.require(:todo).permit(:title, :description, :complete)
+      end
+
+      def set_todo
+        @todo = Todo.find(params[:id])
       end
     end
   end
