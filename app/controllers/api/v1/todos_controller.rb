@@ -5,7 +5,20 @@ module Api
     # Todos controller
     class TodosController < ApplicationController
       def index
-        render json: Todo.all
+        todos = Todo
+          .all
+          .limit(limit)
+          .offset(page_number)
+
+        render json: todos
+      end
+
+      def limit
+        params[:limit] || 25
+      end
+
+      def page_number
+        params[:page_number] || 0
       end
     end
   end
