@@ -4,7 +4,7 @@ module Api
   module V1
     # Todos controller
     class TodosController < ApplicationController
-      before_action :set_todo, only: [:show]
+      before_action :set_todo, only: [:show, :update]
 
       def index
         todos = Todo
@@ -25,6 +25,14 @@ module Api
           render(json: todo, status: :created)
         else
           render(json: todo.errors.full_messages, status: :unprocessable_entity)
+        end
+      end
+
+      def update
+        if @todo.update(todo_params)
+          render(json: @todo)
+        else
+          render(json: @todo.errors.full_messages, status: :unprocessable_entity)
         end
       end
 
